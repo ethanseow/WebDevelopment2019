@@ -1,0 +1,274 @@
+<html>
+
+<head>
+	<title></title>
+	<style>
+		img {
+			height: 30%;
+		}
+
+		.Events {
+			margin-bottom: 50px;
+		}
+
+		.buttonLeft {
+			text-align: left;
+			margin-left: 125px;
+		}
+
+		.buttonRight {
+			text-align: right;
+			margin-right: 125px;
+		}
+
+		.imgleft {
+			float: left;
+		}
+
+		.imgRight {
+			float: right;
+		}
+
+		.datesEventHeaders {
+			background-color: white;
+			display: inline;
+			border: white;
+			border-style: solid;
+			padding: 5px;
+		}
+		.leftVisitHeaders{
+			margin:25px;
+			margin-left: 90px;
+			text-align: center;
+			width: 15%;
+
+			/* decorators for the header */
+			border-style: solid;
+			border-width: 5px;
+			border-color: black;
+			padding: 10px;
+			background-color: white;
+			color: black;
+		}
+		.rightVisitHeaders{
+			margin-left:950px;
+			text-align: center;
+			width: 15%;
+
+			/* decorators for the header */
+			border-style: solid;
+			border-width: 5px;
+			border-color: black;
+			padding: 10px;
+			background-color: white;
+			color: black;
+		}
+		.dates {
+			color: black;
+			font-size: 18px;
+			text-align: center;
+			line-height: 7px;
+		}
+
+		#registeredEvents {
+			color: black;
+			background-color: white;
+			border: white;
+			border-style: solid;
+			padding: 5px;
+		}
+
+		#unregisterButton {
+			text-align: center;
+		}
+
+		#headers {
+			margin-bottom: 15px;
+		}
+	</style>
+	<link rel="stylesheet" href="css template.css" />
+	<script>
+		function initialize() {
+			registerElement = document.getElementById("registeredEvents");
+			event1 = document.getElementById("Event1");
+			event2 = document.getElementById("Event2");
+			event3 = document.getElementById("Event3");
+			button1 = document.getElementById("button1");
+			button2 = document.getElementById("button2");
+			button3 = document.getElementById("button3");
+
+			button1String = "Show Info";
+			button2String = "Show Info";
+			button3String = "Show Info";
+
+			event1VisibilityString = "hidden";
+			event2VisibilityString = "hidden";
+			event3VisibilityString = "hidden";
+			if (sessionStorage.length == 0) {
+				console.log("No session storage yet!");
+				sessionStorage.registerEvents = "Registered Events:";
+				sessionStorage.registerEvent1Bool = true;
+				sessionStorage.registerEvent2Bool = true;
+				sessionStorage.registerEvent3Bool = true;
+			} else {
+				console.log("There is session storage");
+			}
+			console.log(sessionStorage.registerEvents);
+			console.log(sessionStorage.registerEvent1Bool);
+			display();
+		}
+		function showInfo(eventNum) {
+			if (eventNum == 1) {
+				if (event1VisibilityString == "hidden") {
+					event1VisibilityString = "visible";
+					button1String = "Hide Info";
+				} else {
+					event1VisibilityString = "hidden";
+					button1String = "Show Info";
+				}
+			} else if (eventNum == 2) {
+				if (event2VisibilityString == "hidden") {
+					event2VisibilityString = "visible";
+					button2String = "Hide Info";
+				} else {
+					event2VisibilityString = "hidden";
+					button2String = "Show Info";
+				}
+			} else if (eventNum == 3) {
+				if (event3VisibilityString == "hidden") {
+					event3VisibilityString = "visible";
+					button3String = "Hide Info";
+				} else {
+					event3VisibilityString = "hidden";
+					button3String = "Show Info";
+				}
+			}
+			display();
+		}
+		function register(eventNum) {
+			console.log(sessionStorage.registerEvent1Bool + " before");
+			if (eventNum == 1 && sessionStorage.registerEvent1Bool == "true") {
+				console.log("lcs final working");
+				sessionStorage.registerEvents = sessionStorage.registerEvents + "   - LEC Finals 2019";
+				sessionStorage.registerEvent1Bool = false;
+			} else if (eventNum == 2 && sessionStorage.registerEvent2Bool == "true") {
+				sessionStorage.registerEvents = sessionStorage.registerEvents + "   - LPL Finals 2019";
+				sessionStorage.registerEvent2Bool = false;
+			} else if (eventNum == 3 && sessionStorage.registerEvent3Bool == "true") {
+				sessionStorage.registerEvents = sessionStorage.registerEvents + "    - LCS Finals 2019";
+				sessionStorage.registerEvent3Bool = false;
+			}
+			console.log(sessionStorage.registerEvent1Bool + " after");
+			display();
+		}
+		function display() {
+			event1.style.visibility = event1VisibilityString;
+			event2.style.visibility = event2VisibilityString;
+			event3.style.visibility = event3VisibilityString;
+
+			button1.innerHTML = button1String;
+			button2.innerHTML = button2String;
+			button3.innerHTML = button3String;
+
+			registerElement.innerHTML = sessionStorage.registerEvents;
+		}
+		function unregisterAll() {
+			sessionStorage.registerEvents = "Registered Events:";
+			sessionStorage.registerEvent1Bool = true;
+			sessionStorage.registerEvent2Bool = true;
+			sessionStorage.registerEvent3Bool = true;
+			display();
+		}
+	</script>
+</head>
+
+<body onload="initialize();">
+	<div id="headers">
+		<h1>
+			The Convention
+		</h1>
+		<br />
+		<br />
+		<h2>
+			<a href="index.html">Home</a>
+		</h2>
+		<h2>
+			<a href="GuestsPage.html">Guests</a>
+		</h2>
+		<h2>
+			<a href="EventsPage.html">Events</a>
+		</h2>
+		<h3>
+			Events
+		</h3>
+	</div>
+	<p id="registeredEvents">Registered Events:</p>
+	<div id="unregisterButton">
+		<button onclick="unregisterAll();">Unregister</button>
+	</div>
+	<h4 class = 'leftVisitHeaders'>Visit the LEC 2019</h4>
+	<div class="buttonLeft">
+		<button onclick="showInfo(1)" id="button1">Show Info</button>
+		<button onclick="register(1)">Register</button>
+	</div>
+	<div class="Events">
+		<img src="lecFinals.jpg" class="imgleft" />
+		<div id="Event1">
+			<p>The LEC Finals 2019 is the European League of Legends Championships and will take place in Paris this
+				year. The League has more than 300 players, over 20 teams and over 500K in prize money for the
+				winner
+			</p>
+			<div class="dates">
+				<h5 class="datesEventHeaders">DATES FOR THE LEC FINALS 2019</h5>
+				<h5>June 20, 2003</h5>
+				<h5>January 1, 1</h5>
+				<h5>December 25, 1</h5>
+			</div>
+		</div>
+	</div>
+	<h4 class = 'rightVisitHeaders'>Visit the LPL 2019</h4>
+	<div class="buttonRight">
+		<button onclick="showInfo(2);" id="button2">Show Info</button>
+		<button onclick="register(2)">Register</button>
+	</div>
+	<div class="Events">
+		<img src="lplFinals2.jpg" class="imgRight" />
+		<div id="Event2">
+			<p>The LPL finals is the Chinese League of Legends Championships. It is the biggest region and biggest of
+				the
+				championships in League of Legends, with over 500 million concurrent viewers in one of the final matches
+				The LPL finals has over 9999999 RMB in the cash prize
+			</p>
+			<div class="dates">
+				<h5 class="datesEventHeaders">DATES FOR THE LPL FINALS 2019</h5>
+				<h5>June 21, 2003</h5>
+				<h5>January 2, 1</h5>
+				<h5>December 26, 1</h5>
+			</div>
+		</div>
+	</div>
+	<h4 class = 'leftVisitHeaders'>Visit the LCS 2019</h4>
+	<div class="buttonLeft">
+		<button onclick="showInfo(3);" id="button3">Show Info</button>
+		<button onclick="register(3)">Register</button>
+	</div>
+	<div class="Events">
+		<img src="lcsFinals.jpg" class="imgLeft" />
+		<div id="Event3">
+			<p>The LCS finals is the North American League of Legends Championships. It has 15 teams from all over North
+				America and
+				these teams do not get to the Worlds stage due to their "for fun" attitude towards tournaments and
+				games.
+				The LCS has over 1 million in prize money
+			</p>
+			<div class="dates">
+				<h5 class="datesEventHeaders">DATES FOR THE LCS FINALS 2019</h5>
+				<h5>June 22, 2003</h5>
+				<h5>January 3, 1</h5>
+				<h5>December 27, 1</h5>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

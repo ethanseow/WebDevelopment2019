@@ -1,0 +1,217 @@
+<html>
+
+<head>
+    <title></title>
+    <style>
+        img {
+            float: left;
+        }
+
+        h4 {
+            text-align: center;
+            width: 15%;
+
+            /* decorators for the header */
+            border-style: solid;
+            border-width: 5px;
+            border-color: black;
+            padding: 10px;
+            background-color: white;
+            color: red;
+        }
+
+        h5 {
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+
+            color: black;
+            font-family: Courier New;
+            font-size: 15px;
+
+            background-color: rgb(0, 255, 0);
+        }
+        button {
+            margin: 25px 25px 25px 140px;
+        }
+        .secondaryImg{
+            width:100%;
+            height:300px;
+        }
+        .secondaryGuestClass {
+            /*margin-bottom: 200px;*/
+            margin-right:25px;
+            height:25%;
+            width:31.25%;
+            float:left;
+        }
+        .primaryGuestBio,.secondaryGuestBio {
+            margin-bottom: 15px;
+        }
+
+        .primaryGuestClass {
+            margin-bottom: 150px;
+        }
+        .primaryNames{
+            text-align: center;
+            padding:3px;
+            background-color: black;
+            font-size:16px;
+            color:white;
+            border-style: solid;
+            border-width: 5px;
+            border-color: white;
+            margin-left:80px;
+            width: 15%;
+        }
+        .GuestScheduleTimesClass{
+            float: left;
+        }
+        .GuestScheduleTimesClass2{
+            text-align: center;
+        }
+        .secondaryBioHeaders{
+            display:inline-block;
+        }
+        .secondaryNames{
+            font-size:25px;
+            background-color:white;
+            font:black;
+        }
+        #primaryGuestDiv {
+            margin-bottom: 10px;
+            float: left;
+        }
+        #secondaryGuestDiv {
+            float:left;
+            margin-left:10px;
+        }
+        #PrimaryHeader{
+            float: left;
+            margin: 50px 50px 10px 75px;
+        }
+        #SecondaryHeader{
+            margin:auto;
+            margin-bottom:15px;
+        }
+    </style>
+    <link rel="stylesheet" href="css template.css" />
+    <script src="guestsButton.js"></script>
+</head>
+
+<body onload="initialize();">
+    <div id="headers">
+        <h1>
+            The Convention
+        </h1>
+        <br />
+        <br />
+        <h2>
+		<a href="index.html">Home</a>
+        </h2>
+        <h2>
+            <a href="GuestsPage.html">Guests</a>
+        </h2>
+        <h2>
+            <a href="EventsPage.html">Events</a>
+        </h2>
+        <h3>
+            Guests
+        </h3>
+    </div>
+
+    <h4 id = "PrimaryHeader">
+        Primary Guests
+    </h4>
+
+    <div id=primaryGuestDiv>
+        <p class = 'primaryNames'>Meet Faker !</p>
+        <button onclick="showInfo(1);" id="button1">Show Info</button>
+        <div class="primaryGuestClass">
+            <img src="faker.jpg" class="imgLeft" />
+            <div id="primaryGuest1Info">
+                <p class="primaryGuestBio">
+                    Faker is a professional League of Legends player and plays in SKT T1. Born in South Korea, Faker was
+                    exceptional at
+                    video games from an early age. Faker started playing League of Legends at age 13 and through
+                    countless hours, became a pro at age 17
+                    He currently won 3 League of Legends World Championships and is looking forward for a fourth one.
+                </p>
+                <div class="GuestScheduleTimesClass">
+                    <h5> Meet Faker!</h5>
+                    <h5> 4/20/1969</h5>
+                    <h5> 9/1/1939</h5>
+                    <h5>7/28/1914</h5>
+                </div>
+            </div>
+        </div>
+        <button onclick="showInfo(2);" id="button2">Show Info</button>
+        <p class = 'primaryNames'>Meet Doublelift !</p>
+        <div class="primaryGuestClass">
+            <img src="doublelift.jpg" class="imgLeft" />
+            <div id="primaryGuest2Info">
+                <p class="primaryGuestBio">
+                    Doublelift is a North American Professional League of Legends player and streamer. Currently he is
+                    on Team Liquid and has won
+                    0 World Championships
+                </p>
+                <div class="GuestScheduleTimesClass">
+                    <h5> Meet Doublelift!</h5>
+                    <h5> 12/25/0000</h5>
+                    <h5> 11/9/1989</h5>
+                    <h5>10/1/1949</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="secondaryGuestDiv">
+        <h4 id = "SecondaryHeader">
+                Secondary Guests
+        </h4>
+        <div class="secondaryGuestClass">
+            <h5 class = 'secondaryNames'>Tyler1</h5>
+            <img src="tyler1.jpg" class="secondaryImg" />
+            <div id="secondaryGuest1Info">
+                <p class="secondaryGuestBio">
+                    Tyler1 is alpha and got his account banned a lot. He used to play football in high school
+                </p>
+                <div class="GuestScheduleTimesClass2">
+                    <h5 class = "secondaryBioHeaders"> Meet Tyler1!</h5>
+                    <br />
+                    <h5 class = "secondaryBioHeaders"> Booth#1</h5>
+                </div>
+            </div>
+        </div>
+        <div class="secondaryGuestClass">
+            <h5 class = 'secondaryNames'>Cowsep</h5>
+            <img src="cowsep.png" class="secondaryImg" />
+            <div id="secondaryGuest2Info">
+                <p class="secondaryGuestBio">
+                    Cowsep is a LoL streamer that plays Master Yi and wears a cow costume
+                </p>
+                <div class="GuestScheduleTimesClass2">
+                    <h5 class = "secondaryBioHeaders"> Meet Cowsep!</h5>
+                    <br />
+                    <h5 class = "secondaryBioHeaders"> Booth #2</h5>
+                </div>
+            </div>
+        </div>
+        <div class="secondaryGuestClass">
+                <h5 class = 'secondaryNames'>Trick2G</h5>
+            <img src="trick2g.jpg" class="secondaryImg" />
+            <div id="secondaryGuest3Info">
+                <p class="secondaryGuestBio">
+                    Trick2G rages a lot and breaks multiple keyboards a week. He plays Udyr and opens gates
+                </p>
+                <div class="GuestScheduleTimesClass2">
+                    <h5 class = "secondaryBioHeaders"> Meet Trick2G!</h5>
+                    <br />
+                    <h5 class = "secondaryBioHeaders"> Booth #3</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

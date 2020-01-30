@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function initialize() {
+            groceryListArray = ['milk', 'ham', 'cheese', 'tomato', 'bread'];
+
+            selectedIndex = null;
+            maxItemNumber = 5;
+            movedImgIndex = null;
+            currentImg = null;
+            prevImg = null;
+
+            tempImages = document.getElementsByTagName('img');
+            imgArray = [];
+            groceryImagesHTML = []
+            deleteImagesHTML = []
+            for (var i = 0; i < tempImages.length; i += 2) {
+                imgArray.push(tempImages[i].src);
+
+                groceryImagesHTML.push(tempImages[i]);
+                deleteImagesHTML.push(tempImages[i + 1]);
+            }
+            display();
+        }
+        function deleteImg(index) {
+            console.log(imgArray);
+            for (var i = index + 1; i < groceryImagesHTML.length; i++) {
+                var currentImg = imgArray[i];
+                imgArray[i] = imgArray[i - 1];
+                imgArray[i - 1] = currentImg;
+            }
+            /*
+            for (var i = index + 1; i < groceryImagesHTML.length; i++) {
+                var currentImg = groceryListArray[i];
+                groceryListArray[i] = imgArray[i - 1];
+                groceryListArray[i - 1] = currentImg;
+            }
+
+            groceryListArray[maxItemNumber - 1] = null;
+            */
+            imgArray[maxItemNumber - 1] = null;
+            console.log(imgArray);
+            console.log(groceryListArray);
+            display();
+        }
+        function addItem(pictureName) {
+            console.log(imgArray);
+            for (var i = 0; i < maxItemNumber; i++) {
+                if (imgArray[i] == null) {
+                    imgArray[i] = pictureName;
+                    console.log(imgArray);
+                    display();
+                    break;
+                }
+            }
+            /*
+            for (var i = 0; i < maxItemNumber; i++) {
+                if (groceryListArray[i] == null) {
+                    groceryListArray[i] = pictureName;
+                    console.log(groceryListArray);
+                    display();
+                    return;
+                }
+            }*/
+        }
+        function select(index) {
+            selectedIndex = index;
+            currentImg = imgArray[index];
+            display();
+            console.log(selectedIndex);
+            console.log(currentImg + "currentImg");
+            console.log(prevImg + "prevImg");
+        }
+        function moveItem(movement) {
+            if (currentImg != prevImg) {
+                movedImgIndex = selectedIndex;
+            }
+            /*
+            console.log(imgArray[previouslyPlacedIndex]);
+            console.log(imgArray[selectedIndex]);
+            if (imgArray[previouslyPlacedIndex] != imgArray[selectedIndex]) {
+                movedImgIndex = selectedIndex;
+            }
+            if (movement < 0 && movedImgIndex == 0) {
+                display();
+                return;
+            } else if (movement > 0 && movedImgIndex == imgArray.length - 1) {
+                display();
+                return;
+            }
+            var tempImg = imgArray[movedImgIndex]
+            if (imgArray[movedImgIndex + movement] == null) {
+                previouslyPlacedIndex = selectedIndex;
+                display();
+                return;
+            }
+            */
+            if (movement < 0 && movedImgIndex == 0) {
+                display();
+                return;
+            } else if (movement > 0 && movedImgIndex == imgArray.length - 1) {
+                display();
+                return;
+            }
+            if (imgArray[movedImgIndex + movement] == null) {
+                display();
+                return;
+            }
+            var tempImg = imgArray[movedImgIndex]
+            imgArray[movedImgIndex] = imgArray[movedImgIndex + movement];
+            imgArray[movedImgIndex + movement] = tempImg;
+            /*
+            tempImg = groceryListArray[movedImgIndex];
+            groceryListArray[movedImgIndex] = groceryListArray[movedImgIndex + movement];
+            groceryListArray[movedImgIndex + movement] = tempImg;
+            */
+            movedImgIndex = movedImgIndex + movement;
+
+            display();
+            prevImg = currentImg;
+            console.log(currentImg + "currentImg");
+            console.log(prevImg + "prevImg");
+            console.log(groceryListArray);
+
+        }
+        function display() {
+            for (var i = 0; i < groceryImagesHTML.length; i++) {
+                if (imgArray[i] == null) {
+                    groceryImagesHTML[i].src = '';
+                    deleteImagesHTML[i].src = '';
+                } else {
+                    groceryImagesHTML[i].src = imgArray[i];
+                    deleteImagesHTML[i].src = 'delete.png';
+                }
+            }
+        }
+    </script>
+    <style>
+        body{
+            text-align: center;
+        }
+        img {
+            display: block;
+            width: 30%;
+            margin: auto;
+            text-align: center;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            height: 15%;
+        }
+
+        td img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        table {
+            table-layout: fixed;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body onload='initialize();'>
+    <table id='groceryTable'>
+        <tr id='row0'>
+            <td><img src='milk.jpg' / onclick='select(0);''></td>
+            <td><img src=' delete.png' onclick='deleteImg(0);' /></td>
+        </tr>
+        <tr id='row1'>
+            <td><img src='ham.jpg' / onclick='select(1)'></td>
+            <td><img src='delete.png' onclick='deleteImg(1);' /></td>
+        </tr>
+        <tr id='row2'>
+            <td><img src='cheese.jpg' / onclick='select(2)'></td>
+            <td><img src='delete.png' onclick='deleteImg(2);' /></td>
+        </tr>
+        <tr id='row3'>
+            <td><img src='tomato.jpg' / onclick='select(3)'></td>
+            <td><img src='delete.png' onclick='deleteImg(3);' /></td>
+        </tr>
+        <tr id='row4'>
+            <td><img src='bread.jpg' / onclick='select(4)'></td>
+            <td><img src='delete.png' onclick='deleteImg(4);' /></td>
+        </tr>
+    </table>
+    <button onclick='moveItem(-1,1);'>Move Item up</button>
+    <button onclick='moveItem(1,1);'>Move Item down</button>
+    <button onclick='addItem("milk.jpg");'>Add Milk</button>
+    <button onclick='addItem("bread.jpg");'>Add Bread</button>
+    <button onclick='addItem("ham.jpg");'>Add Ham</button>
+    <button onclick='addItem("cheese.jpg");'>Add Cheese</button>
+    <button onclick='addItem("tomato.jpg");'>Add Tomato</button>
+</body>
+
+</html>

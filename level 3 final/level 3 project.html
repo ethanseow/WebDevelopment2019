@@ -1,0 +1,243 @@
+<html>
+    <head>
+        <script>
+            function initialize(){
+                inputFormHTML = document.getElementById('inputForm');
+                diceTable = document.getElementById('tableStats');
+                numberTable = document.getElementById('tableDiceRolls');
+                diceTableHeader = document.getElementById('diceTableHeader');
+                diceTableStatsHeader = document.getElementById('diceTableStatsHeader');
+                numDice = 0;
+                numRolls = 0;
+
+                rangeArray = [];
+                numberArray = [];
+                numOfDoubles = 0;
+                numOfTriples = 0;
+                totalSum = 0;
+
+                lowerFrequencyChecker = 0;
+                upperFrequencyChecker = 0;
+                distanceBetweenValues = 0;
+            }
+            function inputForm(){
+                reset();
+                if(isNaN(inputFormHTML.numDice.value) || isNaN(inputFormHTML.numRolls.value)){
+                    alert('YOU DID NOT PUT IN A VALID DICE VALUE!');
+                    inputFormHTML.numDice.value = "";
+                    inputFormHTML.numRolls.value = "";
+                    return;
+                }
+                if(inputFormHTML.numDice.value > 3 || inputFormHTML.numDice.value < 1 || inputFormHTML.numRolls.value <= 0){
+                    alert('YOU DID NOT PUT IN A VALID DICE VALUE!');
+                    inputFormHTML.numDice.value = "";
+                    inputFormHTML.numRolls.value = "";
+                    return;
+                }
+                numDice = parseInt(inputFormHTML.numDice.value);
+                numRolls = parseInt(inputFormHTML.numRolls.value);
+                console.log(numDice);
+                lowerFrequencyChecker = numDice;
+                upperFrequencyChecker = numDice * 6;
+                distanceBetweenValues = upperFrequencyChecker - lowerFrequencyChecker;
+
+                rollDice(numRolls, numDice);
+                inputFormHTML.numDice.value = "";
+                inputFormHTML.numRolls.value = "";
+                rollDiceDisplay();
+                rollDiceDisplayRolls();
+                console.log(getMode());
+            }
+            function reset(){
+                rangeArray = [];
+                numberArray = [];
+                diceTableHeader.innerHTML = '';
+                diceTableStatsHeader.innerHTML = '';
+                diceTable.innerHTML = '';
+                numberTable.innerHTML = '';
+                totalSum = 0;
+                numOfDoubles = 0;
+                numOfTriples = 0;
+            }
+            function rollDice(numOfRolls, numOfDice){
+                for(var i = 0; i < distanceBetweenValues + 1;i++){
+                    rangeArray[i] = 0;
+                }
+                for(var e = 0;e < numOfRolls;e++){
+                    var sum = 0;
+                    var randomNumberArray = [];
+                    var multipleCounter = 1;
+                    for(var i = 0;i < numOfDice;i++){
+                        var randomNumber = Math.floor(Math.random() * (6) ) + 1;
+                        console.log(randomNumber + "random number" + e);
+                        randomNumberArray[i] = randomNumber;
+                        for(element = 0; element < i;element++){
+                            if(randomNumberArray[element] == randomNumber){
+                                multipleCounter ++;
+                            }
+                        }
+                        console.log(randomNumberArray + " /////randomNumberArray////");
+                        sum += randomNumber;
+                    }
+                    console.log(multipleCounter + " multipleCounter" + "+++++++");
+                    if(multipleCounter - 2 >= 0){
+                        numOfDoubles ++;
+                    }if(multipleCounter - 3 >= 0){
+                        numOfTriples++;
+                    }
+                    console.log(numOfDoubles + " numOfDoubles" + "*******");
+                    console.log(numOfTriples + " numOfTriples" + "()()()()");
+                    console.log(sum + " sum of dice" + "---NEXTLINE----");
+                    rangeArray[sum - lowerFrequencyChecker] = rangeArray[sum - lowerFrequencyChecker] + 1;
+                    totalSum += sum;
+                    numberArray[e] = sum;
+                }
+                numberArray.sort(function(a, b){return a-b});
+                console.log(numOfDoubles + " doubles");
+                console.log(numOfTriples + " triples");
+                console.log(rangeArray);
+                console.log(numberArray);
+                console.log(totalSum + ' total sum');
+                console.log(getMean() + " mean");
+                console.log(getMode() + " mode");
+                console.log(getMedian() + " median");
+            }
+            function getMean(){
+                var x = totalSum / numRolls;
+                return x.toFixed(2);
+            }
+            function getMode(){
+                /*
+                var max = 0;
+                var index = 0;
+                for(var i = 0;i < rangeArray.length;i++){
+                    if(rangeArray[i] > max){
+                        max = rangeArray[i];
+                        index = i;
+                    }
+                }
+                return index + lowerFrequencyChecker;
+                */
+                var max = 0;
+                var modeArray = []
+                for(var i = 0;i < rangeArray.length;i++){
+                    if(rangeArray[i] > max){
+                        modeArray = [];
+                    }
+                    if(rangeArray[i] >= max){
+                        max = rangeArray[i]
+                        modeArray.push(i + lowerFrequencyChecker);
+                    }
+                }
+                return modeArray;
+            }
+            function getMedian(){
+                var medianNumber = Math.floor(numRolls / 2);
+                if(numRolls % 2 ==0){
+                    return (numberArray[medianNumber] + numberArray[medianNumber - 1]) / 2;
+                }else{
+                    return numberArray[medianNumber];
+                }
+            }
+            function rollDiceDisplay(){
+                diceTableStatsHeader.innerHTML = 'Dice Roll Statistics';
+                for(var i = 0;i < distanceBetweenValues + 1;i++){
+                    var row = diceTable.insertRow();
+                    var numberCell = row.insertCell(0);
+                    var freqCell = row.insertCell(1);
+                    numberCell.innerHTML = i + lowerFrequencyChecker;
+                    freqCell.innerHTML = rangeArray[i];
+                }
+                var doublesRow = diceTable.insertRow();
+                var doublesCellTEXT = doublesRow.insertCell(0);
+                var doublesRowFreq = doublesRow.insertCell(1);
+
+                doublesCellTEXT.innerHTML = 'Number Of Doubles';
+                doublesRowFreq.innerHTML = numOfDoubles;
+
+                var triplesRow = diceTable.insertRow();
+                var triplesCellTEXT = triplesRow.insertCell(0);
+                var triplesRowFreq = triplesRow.insertCell(1);
+
+                triplesCellTEXT.innerHTML = 'Number Of Triples';
+                triplesRowFreq.innerHTML = numOfTriples;
+
+                var mean = diceTable.insertRow();
+                var meanTEXT = mean.insertCell(0);
+                var meanNumber = mean.insertCell(1);
+
+                meanTEXT.innerHTML = 'Mean';
+                meanNumber.innerHTML = getMean();
+
+                var median = diceTable.insertRow();
+                var medianTEXT = median.insertCell(0);
+                var medianNumber = median.insertCell(1);
+
+                medianTEXT.innerHTML = 'Median';
+                medianNumber.innerHTML = getMedian();
+                
+                var mode = diceTable.insertRow();
+                var modeTEXT = mode.insertCell(0);
+                var modeNumber = mode.insertCell(1);
+                
+                modeTEXT.innerHTML = 'Mode';
+                modeNumber.innerHTML = getMode();
+            }
+
+            function rollDiceDisplayRolls(){
+                numberArray.sort(function(a, b){return a-b});
+                diceTableHeader.innerHTML = 'Dice Roll Results';
+                var row = numberTable.insertRow();
+                for(var i = 0;i < numberArray.length;i++){
+                    var numberCell = row.insertCell();
+                    numberCell.innerHTML = numberArray[i];
+                }
+            }
+        </script>
+        <style>
+            body{
+                color:rgba(43, 43, 38);
+                background-color: rgba(166, 163, 154);
+                font-family: Arial, Helvetica, sans-serif;
+                text-align: center;
+            }
+            table{
+                background-color:white;
+                margin:auto;
+                border:thick solid grey;
+                border-collapse: collapse;
+                width:20%;
+            }
+            td{
+                border:thin solid black;
+                padding: 8px;
+	            border:thin solid black;
+		        text-align:center;
+		        padding:10px;
+		        background-color:#e3e3e3;
+            }
+        </style>
+    </head>
+    <body onload = "initialize();">
+        <form id = 'inputForm'>
+            How many dice:
+            <input type = 'text' name = 'numDice'>
+            How many times to roll Dice:
+            <input type = 'text' name = 'numRolls'>
+        </form>
+        <button onclick = "inputForm();">Roll Dice</button>
+        <p></p>
+        <h2 id = 'diceTableStatsHeader'></h2>
+        <table id = 'tableStats'>
+            <tr>
+            </tr>
+        </table>
+
+        <h2 id = 'diceTableHeader'></h2>
+        <table id = 'tableDiceRolls'>
+            <tr>
+            </tr>
+        </table>
+    </body>
+
+</html>
