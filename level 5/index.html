@@ -1,40 +1,174 @@
 <html>
-    <head>
-        <style>
-            body{
-                background-color: black;
-                color: yellow;
-                font-family:Verdana, Geneva, Tahoma, sans-serif;
-            }
-            #maindiv{
-                width:70vw;
-                margin:auto;
-            }
-            #logo{
-                width:7.5vw;
-            }
-            #menubar{
-                display:inline-block;
-                margin:auto;
-                line-height: 2vw;
-                width:100%;
-                border:10px solid white;
-            }
-            span{
-                margin-bottom: 100px;
-            }
-        </style>
-    </head>
-    <body>
-        <div id = 'maindiv'>
-            <div id = 'menubar'>
-                <img src = 'images/search_img.png'/>
-                <span>Search</span>
-            </div>
-            <div id = 'logodiv'>
-                <img src = 'images/hoshi_logo.png' id = 'logo'/>  
-            </div>
-        </div>
-    </body>
+
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+	<style>
+		body {
+			background-color: black;
+			color: yellow;
+			font-family: 'Lato', sans-serif;
+			font-size: 14px;
+		}
+
+		#maindiv {
+			width: 70vw;
+			margin: auto;
+		}
+
+		#logo {
+			width: 7.5vw;
+		}
+
+		#menubar {
+			display: inline-block;
+			margin: auto;
+			margin-bottom: 1.5vw;
+			line-height: 2vw;
+			width: 100%;
+			border-bottom: 0.05vw solid lightseagreen;
+		}
+
+		#logodiv {
+			height: 8vw;
+		}
+
+		#hyperlinksdiv {
+			width: 17.5%;
+			height: 100%;
+		}
+
+		#appareldisplay {
+			width: 79.3%;
+			height: 100%;
+		}
+
+		#innerdisplaydiv {
+			margin-top: 0.75vw;
+		}
+
+		.apparelheaders {
+			font-size: 1.25vw;
+		}
+
+		.columns {
+			display: inline-block;
+			vertical-align: top;
+		}
+
+		.apparelcolumn {
+			display: inline-block;
+			vertical-align: top;
+			width: 32%;
+			text-align: center;
+		}
+
+		.apparelcolumn img {
+			width: 100%;
+			height: 40%;
+		}
+
+		.apparelcolumn span {
+			font-size: 22px;
+			display: block;
+		}
+
+		.leftmenubar {
+			float: left;
+		}
+
+		.rightmenubar {
+			float: right;
+		}
+
+		.menucontent {
+			vertical-align: middle;
+		}
+
+		td {
+			padding-top: 0.75vw;
+			padding-bottom: 0.75vw;
+			border-top: 0.05vw solid lightseagreen;
+		}
+	</style>
+</head>
+
+<body>
+	<title>Hoshi Store</title>
+	<div id='maindiv'>
+		<div id='menubar'>
+			<div class='leftmenubar'>
+				<img class='menucontent ' src='images/search_img.png' />
+				<span class='menucontent'>Search</span>
+			</div>
+			<div class='rightmenubar'>
+				<img class='menucontent' src='images/cart_img.jpg' />
+				<span class='menucontent'> Cart(0)</span>
+			</div>
+		</div>
+		<div id='logodiv'>
+			<img src='images/hoshi_logo.png' id='logo' />
+		</div>
+		<div class='columns' id='hyperlinksdiv'>
+			<table>
+				<tr>
+					<td>Contact</td>
+				</tr>
+				<tr>
+					<td>Refunds & Cancellations</td>
+				</tr>
+				<tr>
+					<td>Terms of Service</td>
+				</tr>
+				<tr>
+					<td>Privacy Policy</td>
+				</tr>
+				<tr>
+					<td>About Us</td>
+				</tr>
+			</table>
+		</div>
+		<div class='columns' id='appareldisplay'>
+			<div id='innerdisplaydiv'>
+				<div class='apparelheaders'>Hoodies</div>
+				<div class='apparelrows'>
+					<div class='apparelcolumn'>
+						<img src='images/clothing1.png' />
+						<span>Cloud Hoodie</span>
+						<span>$39.90</span>
+					</div>
+					<div class='apparelcolumn'>
+						<img src='images/clothing2.png' />
+						<span>Cactus Hoodie</span>
+						<span>$39.90</span>
+					</div>
+					<div class='apparelcolumn'>
+						<img src='images/clothing3.png' />
+						<span>Boba Hoodie</span>
+						<span>$39.90</span>
+					</div>
+				</div>
+
+				<div class='apparelheaders'>T-Shirts</div>
+				<div class='apparelrows'>
+					<div class='apparelcolumn'>
+						<img src='images/clothing1.png' />
+						<span>Cloud Hoodie</span>
+						<span>$39.90</span>
+					</div>
+					<div class='apparelcolumn'>
+						<img src='images/clothing2.png' />
+						<span>Cactus Hoodie</span>
+						<span>$39.90</span>
+					</div>
+					<div class='apparelcolumn'>
+						<img src='images/clothing3.png' />
+						<span>Boba Hoodie</span>
+						<span>$39.90</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
 
 </html>
