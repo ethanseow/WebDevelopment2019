@@ -1,0 +1,71 @@
+html{
+    margin: 0px;
+}
+body {
+    background-color: black;
+    color: yellow;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    text-size-adjust: 100%;
+    margin: 0px;
+}
+
+#maindiv {
+    box-sizing: border-box;
+    margin:auto;
+    width: 1250px;
+}
+
+#logo {
+    width: 125px;
+    height:102.766px;
+}
+
+#menubar {
+    display: inline-block;
+    line-height: 10px;
+    width: 100%;
+    height:36px;
+    font-size:16px;
+    border-bottom: 1px solid lightseagreen;
+}
+
+#logodiv {
+    width:1220px;
+    height:102.5px;
+    margin-bottom:30px;
+    margin-top: 30px;
+    vertical-align: middle;
+}
+
+#hyperlinksdiv {
+    width: 220px;
+    height: 281px;
+}
+#lastrow{
+    border-bottom: 1px solid lightseagreen;
+}
+.leftmenubar {
+    float: left;
+}
+
+.rightmenubar {
+    float: right;
+}
+
+.menucontent {
+    vertical-align: middle;
+}
+.columns {
+    display: inline-block;
+    vertical-align: top;
+}
+table{
+    width: 220px;
+    height:250px;
+}
+td {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-top: 1px solid lightseagreen;
+}

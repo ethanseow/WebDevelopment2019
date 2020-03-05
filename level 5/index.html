@@ -1,67 +1,21 @@
 <html>
 
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+	<link href='base_css.css' rel='stylesheet'>
 	<style>
-		body {
-			background-color: black;
-			color: yellow;
-			font-family: 'Lato', sans-serif;
-			font-size: 14px;
-			text-size-adjust: 100%;
-			box-sizing: border-box;
-		}
-
-		#maindiv {
-			width: 1250px;
-			height:3891.58px;
-			margin:auto;
-		}
-
-		#logo {
-			width: 125px;
-			height:102.766px;
-		}
-
-		#menubar {
-			display: inline-block;
-			margin: auto;
-			margin-bottom: 1.5vw;
-			line-height: 2vw;
-			width: 1250px;
-			height:36px;
-			font-size:16px;
-			border-bottom: 1px solid lightseagreen;
-		}
-
-		#logodiv {
-			width:1220px;
-			height:102.5px;
-		}
-
-		#hyperlinksdiv {
-			width: 220px;
-			height: 281px;
-		}
-
 		#appareldisplay {
 			width: 1000px;
 			height: 786.66px;
 		}
-		#lastrow{
-			border-bottom: 1px solid lightseagreen;
-		}
+
 		#innerdisplaydiv {
-			margin-top: 0.75vw;
+			margin-top: 10px;
 		}
 
 		.apparelheaders {
 			font-size: 23px;
-		}
-
-		.columns {
-			display: inline-block;
-			vertical-align: top;
 		}
 
 		.apparelcolumn {
@@ -69,6 +23,9 @@
 			vertical-align: top;
 			width: 32%;
 			text-align: center;
+			margin-bottom: 15px;
+			margin-top: 30px;
+			margin-right: 10px;
 		}
 
 		.apparelcolumn img {
@@ -81,25 +38,11 @@
 			display: block;
 		}
 
-		.leftmenubar {
-			float: left;
-		}
-
-		.rightmenubar {
-			float: right;
-		}
-
-		.menucontent {
-			vertical-align: middle;
-		}
-		table{
-			width: 220px;
-			height:281px;
-		}
-		td {
-			padding-top: 12px;
-			padding-bottom: 12px;
-			border-top: 1px solid lightseagreen;
+		@media only screen and (max-width: 1300px) {
+			#maindiv {
+				width: 100%;
+				margin: 0px;
+			}
 		}
 	</style>
 </head>
@@ -135,7 +78,7 @@
 					<td>Privacy Policy</td>
 				</tr>
 				<tr>
-					<td id = 'lastrow'>About Us</td>
+					<td id='lastrow'>About Us</td>
 				</tr>
 			</table>
 		</div>
@@ -158,24 +101,54 @@
 						<span>Boba Hoodie</span>
 						<span>$39.90</span>
 					</div>
+					<div class='apparelcolumn'>
+						<img src='images/clothing4.png' />
+						<span>Pop-Tart Hoodie</span>
+						<span>$39.90</span>
+					</div>
+					<div class='apparelcolumn'>
+						<img src='images/clothing5.png' />
+						<span>Astro Hoodie</span>
+						<span>$39.90</span>
+					</div>
+					<div class='apparelcolumn'>
+						<img src='images/clothing6.png' />
+						<span>Space Hoodie</span>
+						<span>$39.90</span>
+					</div>
 				</div>
 
 				<div class='apparelheaders'>T-Shirts</div>
 				<div class='apparelrows'>
 					<div class='apparelcolumn'>
-						<img src='images/clothing1.png' />
-						<span>Cloud Hoodie</span>
-						<span>$39.90</span>
+						<img src='images/clothing7.png' />
+						<span>Cloud Tee</span>
+						<span>$24.90</span>
 					</div>
 					<div class='apparelcolumn'>
-						<img src='images/clothing2.png' />
-						<span>Cactus Hoodie</span>
-						<span>$39.90</span>
+						<img src='images/clothing8.png' />
+						<span>Sunny Ship Tee</span>
+						<span>$24.90</span>
 					</div>
 					<div class='apparelcolumn'>
-						<img src='images/clothing3.png' />
-						<span>Boba Hoodie</span>
-						<span>$39.90</span>
+						<img src='images/clothing9.png' />
+						<span>Sun Tee</span>
+						<span>$24.90</span>
+					</div>
+					<div class='apparelcolumn'>
+						<img src='images/clothing10.png' />
+						<span>Moon Tee</span>
+						<span>$24.90</span>
+					</div>
+					<div class='apparelcolumn'>
+						<img src='images/clothing11.png' />
+						<span>Earth Tee</span>
+						<span>$24.90</span>
+					</div>
+					<div class='apparelcolumn'>
+						<img src='images/clothing12.png' />
+						<span>Cactus Tee</span>
+						<span>$24.90</span>
 					</div>
 				</div>
 			</div>
