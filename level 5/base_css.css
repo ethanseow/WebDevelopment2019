@@ -15,12 +15,6 @@ body {
     margin:auto;
     width: 1250px;
 }
-
-#logo {
-    width: 125px;
-    height:102.766px;
-}
-
 #menubar {
     display: inline-block;
     line-height: 10px;
@@ -32,12 +26,14 @@ body {
 
 #logodiv {
     width:1220px;
-    height:102.5px;
+    height:102.766px;
     margin-bottom:30px;
     margin-top: 30px;
     vertical-align: middle;
 }
-
+#logodiv img{
+    width: 125px;
+}
 #hyperlinksdiv {
     width: 220px;
     height: 281px;
@@ -68,4 +64,11 @@ td {
     padding-top: 12px;
     padding-bottom: 12px;
     border-top: 1px solid lightseagreen;
+}
+a:link,a:visited {
+    color: yellow;
+    text-decoration: none;
+}
+a:hover{
+    color: #B6B000;
 }
