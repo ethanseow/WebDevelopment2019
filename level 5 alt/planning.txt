@@ -1,0 +1,23 @@
+Planning
+
+Use CSS to dress up your page nicely.
+- make every element centered on the page and have a header on top stating the quiz name
+- make every quiz question element different colored 
+
+Describe the quiz to the user.
+- make a box that describes the quiz to the player underneath the quiz name
+
+Your questions section should contain 10 questions.
+- 10 questions, with the selected choice turning green to signify selection
+
+A submit button for when the user has completed the quiz to his or her satisfaction.
+- a submit button at the end of the quiz in big button
+
+The results area should show which superhero, starship captain, city, animal, vital organ,
+insect, or germ best represents the user. This should not be populated until the user
+has finished the quiz.
+
+- once the user has clicked the submit button, pictures of all the representations are displayed with their attributes labeled
+
+A reset button.
+- a reset button below the submit button

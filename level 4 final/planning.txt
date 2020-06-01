@@ -1,0 +1,28 @@
+Grocery list outline
+
+Model the page off of amazon
+
+The page needs the list of all of the groceries the user plans to buy.
+- a list of pictures displaying what the user plans to buy
+
+The page needs a way for the user to add new groceries to the list.
+- buttons that add groceries to list
+
+The page needs a way for the user to organize the list by moving groceries up and down.
+- a selection on the pictures, then an up/down button that moves the selected grocery
+
+The page needs a button or icon so that an item can be deleted from the list.
+- a button that deletes the last item in the list
+
+The page should be intuitive and attractive.
+- modeled after Amazon cart
+
+Backend
+- get a list of all pictures(representing the groceries)
+- removing a grocery involves these steps
+	- selected grocery becomes nulled out in the array( [milk, bread, null, ham, tomato])
+	- then display() func is run, moving the nulled element towards the back of the list, and displaying the photos
+- adding a grocery involves replacing a null value (which is always at the end) and inserting the picture source
+- moving up/down involves selecting the picture (which corresponds to an index in the list), then a movement up or down
+  swaps the element before/after the selected element. A variable keeps track of the movement to keep at the selected item's index
+  (for example, you click element at index 2, and move it up, making that element be at index 1)
