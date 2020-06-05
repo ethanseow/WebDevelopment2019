@@ -1,0 +1,367 @@
+<html>
+
+<head>
+    <style>
+        button{
+            width:75px;
+            height:50px;
+        }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: auto;
+            color: white;
+            background-color: grey;
+        }
+
+        h1 {
+            text-align: center;
+
+        }
+        h3{
+            color: rgb(182, 19, 19);
+        }
+        div {
+            display: inline-block;
+        }
+
+        #desc {
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            width: 33%;
+            border: 10px solid black;
+            background-color: black;
+        }
+
+        #buttons {
+            margin: auto;
+            text-align: center;
+            display: block;
+        }
+
+        #questions {
+            width: 33%;
+            height: 75%;
+        }
+        #results{
+            width:75%;
+        }
+        .padding {
+            width: 33%;
+        }
+        .padding2{
+            width:20%;
+        }
+        .quizResults {
+            display: block;
+            font-size: 25px;
+            width: 33%;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        function initialize() {
+            allQuestions = document.getElementsByTagName('form');
+            allRadioButtons = document.getElementsByTagName('input');
+            allTextInForm = document.getElementsByClassName('questionText');
+            allResults = document.getElementsByClassName('quizResults');
+            baseCaseResults = [];
+            displayResult = [];
+            for(var index = 0;index < allResults.length;index++){
+                baseCaseResults[index] = allResults[index].innerHTML;
+            } 
+
+            totalSum = 0;
+
+            backgroundColors = [];
+            fontColors = [];
+            defaultBackgroundColor = 'grey';
+            defaultFontColor = 'white';
+            changeBackgroundColor = 'black';
+            changeFontColor = 'white';
+            errorColor = 'red';
+
+            isReset = false;
+            allSubmitted = false;
+
+            numOfChoices = 4;
+            for (var index = 0; index < allQuestions.length * numOfChoices; index++) {
+                backgroundColors[index] = defaultBackgroundColor;
+                fontColors[index] = defaultFontColor;
+            }
+            display();
+        }
+        function applyFormula(selection) {
+            if (selection == 0) {
+                totalSum += 2;
+            }
+            else if (selection == 1) {
+                totalSum -= 2;
+            }
+            else if (selection == 2) {
+                totalSum *= 2;
+            }
+            console.log(totalSum);
+        }
+        function getAnswer(formNum) {
+            for (var elementIndex = 0; elementIndex < allQuestions[formNum].elements.length; elementIndex++) {
+                allQuestions[formNum].elements[elementIndex].disabled = true;
+                if (allQuestions[formNum].elements[elementIndex].checked) {
+                    applyFormula(elementIndex);
+                }
+            }
+        }
+        function getAllAnswers() {
+            if (!checkAllForms()) {
+                alert('You have not filled all forms');
+                return;
+            }
+            allSubmitted = true;
+            for (var i = 0; i < allQuestions.length; i++) {
+                getAnswer(i);
+            }
+            makePrediction();
+
+        }
+        function checkAllForms() {
+            var canSubmit = true;
+            for (var questionIndex = 0; questionIndex < allQuestions.length; questionIndex++) {
+                var totalNotAnswered = 0;
+                var currentQuestion = allQuestions[questionIndex];
+                for (var radioIndex = 0; radioIndex < numOfChoices; radioIndex++) {
+                    if (!currentQuestion.elements[radioIndex].checked) {
+                        totalNotAnswered += 1;
+                    }
+                }
+                if (totalNotAnswered == 4) {
+                    canSubmit = false;
+                    var start = questionIndex * numOfChoices;
+                    var end = start + numOfChoices - 1;
+                    for (var colorIndex = start; colorIndex < end + 1; colorIndex++) {
+                        backgroundColors[colorIndex] = errorColor;
+                    }
+                }
+            }
+            display();
+            return canSubmit;
+        }
+        function resetAnswers() {
+            for (var index = 0; index < allQuestions.length * numOfChoices; index++) {
+                backgroundColors[index] = defaultBackgroundColor;
+                fontColors[index] = defaultFontColor;
+            }
+            for (var index = 0; index < allQuestions.length; index++) {
+                allQuestions[index].reset();
+                for (var elementIndex = 0; elementIndex < allQuestions[index].elements.length; elementIndex++) {
+                    allQuestions[index].elements[elementIndex].disabled = false;
+                }
+            }
+            isReset = true;
+            allSubmitted = false;
+            totalSum = 0;
+            display();
+
+        }
+        function changeColor(formNumber) {
+            var currentForm = allQuestions[formNumber];
+            for (var questionIndex = 0; questionIndex < numOfChoices; questionIndex++) {
+                var tempIndex = formNumber * numOfChoices + questionIndex;
+                if (allRadioButtons[tempIndex].checked) {
+                    backgroundColors[tempIndex] = changeBackgroundColor;
+                    fontColors[tempIndex] = changeFontColor;
+                } else {
+                    backgroundColors[tempIndex] = defaultBackgroundColor;
+                    fontColors[tempIndex] = defaultFontColor;
+                }
+            }
+            display();
+        }
+        function makePrediction(){
+            if(totalSum < 10){
+                changeResult(['Superman','Kirk','NYC','Cougar','Heart','Roach','Bubonic Plague']);
+            }else if(totalSum < 20){
+                changeResult(['Batman','Samus','Tokyo','Tiger','Lungs','Dungbeetle','Flu']);
+            }else if(totalSum < 30){
+                changeResult(['Spiderman','Spock','L.A.','Lion','Brain','Fly','E.coli']);
+            }else{
+                changeResult(['Spiderman','Kirk','NYC','Tiger','Heart','Fly','Bubonic Plague']);
+            }
+            display();
+        }
+        function changeResult(resultList){
+            for(var index = 0; index < allResults.length;index++){
+                displayResult[index] = resultList[index];
+                console.log(displayResult);
+            }
+        }
+        function display() {
+            for (var index = 0; index < allTextInForm.length; index++) {
+                allTextInForm[index].style.color = fontColors[index];
+                allTextInForm[index].style.backgroundColor = backgroundColors[index];
+            }
+            if(allSubmitted){
+                for(var index = 0;index < allResults.length;index++){
+                    allResults[index].innerHTML = baseCaseResults[index] + displayResult[index];
+                }
+                allSubmitted = false;
+            }
+            if(isReset){
+                for(var index = 0;index < allResults.length;index++){
+                    allResults[index].innerHTML = baseCaseResults[index];
+                }
+                isReset = false;
+            }
+            return;
+        }
+    </script>
+</head>
+
+<body onload='initialize();'>
+    <title>Internet Quiz</title>
+    <h1>
+        Buzzfeed Quiz
+    </h1>
+    <div class='padding'></div>
+    <div id='desc'>
+        Welcome to the Buzzfeed quiz, the most epic quiz in all of the
+        internet. By answering a few questions you will be able to
+        know the most pressing questions about life: what superhero, starship captain, city, animal, vital organ,
+        insect, or germ best
+        represents me? With this quiz, you will find out these questions
+        in no time, so hop right in!
+    </div>
+    <br>
+    <div class='padding'></div>
+    <div class='questions'>
+        <h3>1.What is your favorite animal?</h3>
+        <form id='question1'>
+            <input type="radio" id='Tiger' name='animal' value="Tiger" onclick='changeColor(0);'>
+            <div class='questionText' for="Tiger">Tiger</div><br>
+            <input type="radio" id='Lion' name='animal' value="Lion" onclick='changeColor(0);'>
+            <div class='questionText' for="Lion">Lion</div><br>
+            <input type="radio" id='Snake' name='animal' value="Snake" onclick='changeColor(0);'>
+            <div class='questionText' for="Snake">Snake</div><br>
+            <input type="radio" id='Sloth' name='animal' value="Sloth" onclick='changeColor(0);'>
+            <div class='questionText' for="Sloth">Sloth</div><br>
+        </form>
+        <h3>2.What is your favorite color?</h3>
+        <form id='question2'>
+            <input type="radio" id='Red' name='color' value="Red" onclick='changeColor(1);'>
+            <div class='questionText' for="Red">Red</div><br>
+            <input type="radio" id='Blue' name='color' value="Blue" onclick='changeColor(1);'>
+            <div class='questionText' for="Blue">Blue</div><br>
+            <input type="radio" id='Green' name='color' value="Green" onclick='changeColor(1);'>
+            <div class='questionText' for="Green">Green</div><br>
+            <input type="radio" id='Yellow' name='color' value="Yellow" onclick='changeColor(1);'>
+            <div class='questionText' for="Yellow">Yellow</div><br>
+        </form>
+        <h3>3.Who is the GOAT in the NBA?</h3>
+        <form id='question3'>
+            <input type="radio" id='Jordan' name='player' value="Jordan" onclick='changeColor(2);'>
+            <div class='questionText' for="Jordan">Jordan</div><br>
+            <input type="radio" id='Kobe' name='player' value="Kobe" onclick='changeColor(2);'>
+            <div class='questionText' for="Kobe">Kobe</div><br>
+            <input type="radio" id='Lebron' name='player' value="Lebron" onclick='changeColor(2);'>
+            <div class='questionText' for="Lebron">Lebron</div><br>
+            <input type="radio" id='Your mom' name='player' value="Your mom" onclick='changeColor(2);'>
+            <div class='questionText' for="Your mom">Your mom</div><br>
+        </form>
+        <h3>4.What is your favorite food?</h3>
+        <form id='question4'>
+            <input type="radio" id='Pizza' name='food' value="Pizza" onclick='changeColor(3);'>
+            <div class='questionText' for="Pizza">Pizza</div><br>
+            <input type="radio" id='Burger' name='food' value="Burger" onclick='changeColor(3);'>
+            <div class='questionText' for="Burger">Burger</div><br>
+            <input type="radio" id='Fried Chicken' name='food' value="Fried Chicken" onclick='changeColor(3);'>
+            <div class='questionText' for="Fried Chicken">Fried Chicken</div><br>
+            <input type="radio" id='Ice cream' name='food' value="Ice cream" onclick='changeColor(3);'>
+            <div class='questionText' for="Ice cream">Ice cream</div><br>
+        </form>
+        <h3>5.What type of music do you like?</h3>
+        <form id='question5'>
+            <input type="radio" id='Rap' name='music' value="Rap" onclick='changeColor(4);'>
+            <div class='questionText' for="Rap">Rap</div><br>
+            <input type="radio" id='Classical' name='music' value="Classical" onclick='changeColor(4);'>
+            <div class='questionText' for="Classical">Classical</div><br>
+            <input type="radio" id='Pop' name='music' value="Pop" onclick='changeColor(4);'>
+            <div class='questionText' for="Pop">Pop</div><br>
+            <input type="radio" id='Techno' name='music' value="Techno" onclick='changeColor(4);'>
+            <div class='questionText' for="Techno">Techno</div><br>
+        </form>
+        <h3>6.What is your favorite number?</h3>
+        <form id='question6'>
+            <input type="radio" id='5' name='number' value="5" onclick='changeColor(5);'>
+            <div class='questionText' for="5">5</div><br>
+            <input type="radio" id='6' name='number' value="6" onclick='changeColor(5);'>
+            <div class='questionText' for="6">6</div><br>
+            <input type="radio" id='number' name='number' value="number" onclick='changeColor(5);'>
+            <div class='questionText' for="number">number</div><br>
+            <input type="radio" id='100' name='number' value="100" onclick='changeColor(5);'>
+            <div class='questionText' for="100">100</div><br>
+        </form>
+        <h3>7.What you do if you won the lottery?</h3>
+        <form id='question7'>
+            <input type="radio" id='Buy Food' name='lotto' value="Buy Food" onclick='changeColor(6);'>
+            <div class='questionText' for="Buy Food">Buy Food</div><br>
+            <input type="radio" id='Buy a home' name='lotto' value="Buy a home" onclick='changeColor(6);'>
+            <div class='questionText' for="Buy a home">Buy a home</div><br>
+            <input type="radio" id='Place in bank' name='lotto' value="Place in bank" onclick='changeColor(6);'>
+            <div class='questionText' for="Place in bank">Place in bank</div><br>
+            <input type="radio" id='Burn it' name='lotto' value="Burn it" onclick='changeColor(6);'>
+            <div class='questionText' for="Burn it">Burn it</div><br>
+        </form>
+        <h3>8.What is your favorite programming language?</h3>
+        <form id='question8'>
+            <input type="radio" id='Java' name='lang' value="Java" onclick='changeColor(7);'>
+            <div class='questionText' for="Java">Java</div><br>
+            <input type="radio" id='Python' name='lang' value="Python" onclick='changeColor(7);'>
+            <div class='questionText' for="Python">Python</div><br>
+            <input type="radio" id='R' name='lang' value="R" onclick='changeColor(7);'>
+            <div class='questionText' for="R">R</div><br>
+            <input type="radio" id='C#' name='lang' value="C#" onclick='changeColor(7);'>
+            <div class='questionText' for="C#">C#</div><br>
+        </form>
+        <h3>9.What is your favorite country?</h3>
+        <form id='question9'>
+            <input type="radio" id='USA' name='country' value="USA" onclick='changeColor(8);'>
+            <div class='questionText' for="USA">USA</div><br>
+            <input type="radio" id='England' name='country' value="England" onclick='changeColor(8);'>
+            <div class='questionText' for="England">England</div><br>
+            <input type="radio" id='France' name='country' value="France" onclick='changeColor(8);'>
+            <div class='questionText' for="France">France</div><br>
+            <input type="radio" id='Russia' name='country' value="Russia" onclick='changeColor(8);'>
+            <div class='questionText' for="Russia">Russia</div><br>
+        </form>
+        <h3>10.What is your favorite drink?</h3>
+        <form id='question10'>
+            <input type="radio" id='Coke' name='drink' value="Coke" onclick='changeColor(9);'>
+            <div class='questionText' for="Coke">Coke</div><br>
+            <input type="radio" id='Water' name='drink' value="Water" onclick='changeColor(9);'>
+            <div class='questionText' for="Water">Water</div><br>
+            <input type="radio" id='Tea' name='drink' value="Tea" onclick='changeColor(9);'>
+            <div class='questionText' for="Tea">Tea</div><br>
+            <input type="radio" id='Blood mwahahah' name='drink' value="Blood mwahahah" onclick='changeColor(9);'>
+            <div class='questionText' for="Blood mwahahah">Blood mwahahah</div><br>
+        </form>
+
+    </div>
+    <br>
+    <div class='padding2'></div>
+    <div id='results'>
+        <span class='quizResults'>Superhero : </span>
+        <span class='quizResults'>Starship Captain : </span>
+        <span class='quizResults'>City : </span>
+        <span class='quizResults'>Animal : </span>
+        <span class='quizResults'>Vital Organ : </span>
+        <span class='quizResults'>Insect : </span>
+        <span class='quizResults'>Germ : </span>
+    </div>
+    <div id='buttons'>
+        <br>
+        <button onclick='getAllAnswers();'>Submit</button>
+        <button onclick='resetAnswers();'>Reset</button>
+    </div>
+</body>
+
+</html>
